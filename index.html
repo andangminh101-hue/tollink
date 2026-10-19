@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>MINH AN TOOL LINK</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 18px 12px;
+  min-height: 100vh;
+  font-family: -apple-system, Arial, sans-serif;
+  color: #f4f8ff;
+  background:
+    radial-gradient(ellipse at top, #12334b, transparent 65%),
+    linear-gradient(145deg, #050b18, #110b20);
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.panel {
+  padding: 22px;
+  margin-bottom: 18px;
+  border: 1px solid #24516b;
+  border-radius: 22px;
+  background: rgba(9, 19, 38, .96);
+  box-shadow: 0 0 20px #00cfff12;
+}
+
+.header {
+  text-align: center;
+  padding: 28px 12px;
+}
+
+.logo {
+  font-size: 34px;
+  color: #43dcff;
+  text-shadow: 0 0 15px #00cfff;
+}
+
+h1 {
+  font-size: clamp(24px, 7vw, 35px);
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #42dfff, #fff, #ff5ca8);
+  color: transparent;
+  background-clip: text;
+  margin: 12px 0;
+}
+
+.subtitle {
+  color: #a9bed2;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+h2 {
+  font-size: 15px;
+  color: #6be4ff;
+  margin: 0 0 18px;
+}
+
+.providers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  border: 1px solid #29445d;
+  border-radius: 13px;
+  padding: 14px 8px;
+  color: #eaf6ff;
+  background: #101b30;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+button.selected {
+  border-color: #42dfff;
+  color: #70eaff;
+  box-shadow: 0 0 12px #20cfff30;
+}
+
+.selected-text {
+  color: #b4c5d9;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  padding: 16px 13px;
+  color: white;
+  background: #050c19;
+  border: 1px solid #35cfff;
+  border-radius: 14px;
+  outline: none;
+  font-size: 16px;
+}
+
+input:focus {
+  box-shadow: 0 0 12px #00cfff40;
+}
+
+.hint {
+  color: #aabbd0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.primary {
+  color: #04111e;
+  background: linear-gradient(100deg, #16c5ff, #72eaff);
+  border: none;
+}
+
+.result {
+  display: none;
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #29445d;
+  border-radius: 12px;
+  background: #050c19;
+  color: #bcefff;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.result a {
+  color: #72eaff;
+}
+
+.warning {
+  margin-top: 18px;
+  color: #92a6bd;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  color: #71849a;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 12px;
+}
+
+@media (max-width: 360px) {
+  .panel { padding: 16px; }
+  .actions { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <section class="panel header">
+    <div class="logo">ϟ</div>
+    <h1>MINH AN TOOL LINK</h1>
+    <div class="subtitle">LINK REDIRECT HELPER</div>
+  </section>
+
+  <section class="panel">
+    <h2>▌ CHỌN LOẠI LINK</h2>
+
+    <div class="providers" id="providers">
+      <button data-name="Gtraffic.io">Gtraffic.io</button>
+      <button data-name="Link4m">Link4m</button>
+      <button data-name="Layma.net">Layma.net</button>
+      <button data-name="Traffic4k.com">Traffic4k.com</button>
+      <button data-name="Site2s.com">Site2s.com</button>
+      <button data-name="Bbmkt.com">Bbmkt.com</button>
+      <button data-name="Ontop.link">Ontop.link</button>
+      <button data-name="Khác">Khác</button>
+    </div>
+
+    <div class="selected-text">
+      Đã chọn: <strong id="selectedName">Chưa chọn</strong>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>▌ DÁN LINK CẦN XỬ LÝ</h2>
+
+    <label for="url">Đường dẫn URL</label>
+    <input
+      id="url"
+      type="url"
+      inputmode="url"
+      placeholder="https://..."
+      autocomplete="url"
+    >
+
+    <p class="hint">
+      Dán link HTTPS vào ô trên rồi nhấn nút xử lý.
+      Link sẽ được kiểm tra và mở trong tab mới.
+    </p>
+
+    <div class="actions">
+      <button class="primary" id="process">
+        XỬ LÝ LINK ↗
+      </button>
+
+      <button id="copy">
+        SAO CHÉP URL
+      </button>
+    </div>
+
+    <div class="result" id="result" role="status"></div>
+
+    <p class="warning">
+      Lưu ý: Đây là công cụ xử lý chuyển hướng cơ bản.
+      HTML độc lập không thể tự đọc đích cuối của mọi website.
+      CAPTCHA, đăng nhập hoặc xác minh cần được thực hiện
+      trực tiếp trên website đích.
+    </p>
+  </section>
+
+  <footer>
+    MINH AN TOOL LINK · SAFARI iOS
+  </footer>
+
+</div>
+
+<script>
+const buttons = document.querySelectorAll(
+  "#providers button"
+);
+
+const selectedName =
+  document.getElementById("selectedName");
+
+const urlInput = document.getElementById("url");
+const result = document.getElementById("result");
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    buttons.forEach(item =>
+      item.classList.remove("selected")
+    );
+
+    button.classList.add("selected");
+
+    selectedName.textContent =
+      button.dataset.name;
+  });
+});
+
+function showMessage(message) {
+  result.style.display = "block";
+  result.textContent = message;
+}
+
+function getURL() {
+  const value = urlInput.value.trim();
+
+  if (!value) {
+    showMessage("Vui lòng dán URL cần xử lý.");
+    return null;
+  }
+
+  let parsed;
+
+  try {
+    parsed = new URL(value);
+  } catch {
+    showMessage("URL không hợp lệ. Hãy kiểm tra lại.");
+    return null;
+  }
+
+  if (parsed.protocol !== "https:") {
+    showMessage("Vui lòng sử dụng đường dẫn HTTPS.");
+    return null;
+  }
+
+  if (!parsed.hostname.includes(".")) {
+    showMessage("Tên miền không hợp lệ.");
+    return null;
+  }
+
+  return parsed.href;
+}
+
+document.getElementById("process")
+  .addEventListener("click", () => {
+    const url = getURL();
+
+    if (!url) return;
+
+    showMessage(
+      "Đã kiểm tra URL. Đang mở trang đích trong tab mới. " +
+      "Nếu website yêu cầu xác minh, hãy thực hiện trên trang đó."
+    );
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  });
+
+document.getElementById("copy")
+  .addEventListener("click", async () => {
+    const url = getURL();
+
+    if (!url) return;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      showMessage("Đã sao chép URL thành công.");
+    } catch {
+      urlInput.focus();
+      urlInput.select();
+      showMessage(
+        "URL đã được chọn. Hãy dùng chức năng Sao chép của iPhone."
+      );
+    }
+  });
+
+urlInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    document.getElementById("process").click();
+  }
+});
+</script>
+</body>
+</html>
